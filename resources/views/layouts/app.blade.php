@@ -44,8 +44,8 @@
                         @endhasrole
                         @hasrole('Client')
                         <li><a class="nav-link" href="{{ route('products.index') }}">Create request</a></li>
+                        <li><a class="nav-link" href="/comment">Do comment about company</a></li>
                         @endhasrole
-
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }}

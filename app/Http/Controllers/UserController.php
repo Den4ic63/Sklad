@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -131,5 +133,21 @@ class UserController extends Controller
     {
         User::find($id)->delete();
         return redirect()->route('users.index')->with('success','User deleted successfully');
+    }
+
+    public function comments(Request $request)
+    {
+        $data = Comment::orderBy('id','DESC')->get();
+
+        return view('users.comment',compact('data')) ->with('i', ($request->input('page', 1) - 1) * 5);
+    }
+
+    public function leavecomments(Request $request)
+    {
+        Comment::create([
+            'email'=>Auth::user()->email,
+            'comment'=>$request->comment
+        ]);
+        return redirect()->back();
     }
 }
