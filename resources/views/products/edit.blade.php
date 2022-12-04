@@ -40,6 +40,34 @@
                     <textarea class="form-control" style="height:150px" name="detail" placeholder="Detail">{{ $product->detail }}</textarea>
                 </div>
             </div>
+            @hasrole('Admin')
+            @if($product->date_project_end==='not_set')
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Project end-date:</strong>
+                    <input type="date" name="date_project_end" class="form-control" placeholder="Date">
+                </div>
+            </div>
+            @else
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>Project end-date:</strong>
+                        <input type="date" name="date_project_end" class="form-control" placeholder="Date" value="{{ $product->date_project_end }}">
+                    </div>
+                </div>
+            @endif
+
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Project condition</strong>
+                    <select name="condition" class="form-control" >
+                        <option value="Проект на рассмотрении" selected>Проект на рассмотрении</option>
+                        <option value="Проект начат" >Проект начат</option>
+                        <option value="Проект закончен">Проект закончен</option>
+                    </select>
+                </div>
+            </div>
+            @endhasrole
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row">
+    <div class="row mb-4">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
                 <h2>Users Management</h2>
@@ -34,7 +34,7 @@
                 <td>
                     @if(!empty($user->getRoleNames()))
                         @foreach($user->getRoleNames() as $v)
-                            <label class="badge badge-success">{{ $v }}</label>
+                            <span>{{$v}}</span>
                         @endforeach
                     @endif
                 </td>

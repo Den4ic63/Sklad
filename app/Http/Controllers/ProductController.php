@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -26,6 +28,7 @@ class ProductController extends Controller
      */
     public function index()
     {
+        $user =Auth::user()->email;
         $products = Product::latest()->paginate(5);
         return view('products.index',compact('products'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -47,14 +50,23 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request,User $user)
     {
         request()->validate([
             'name' => 'required',
             'detail' => 'required',
         ]);
 
-        Product::create($request->all());
+        $product=Product::create(
+            [
+                'name'=>$request->name,
+                'detail'=>$request->detail,
+                'date_project_end'=>$request->input('date_project_end','not_set'),
+                'condition'=>$request->input('condition','Проект на рассмотрении'),
+                'user_name'=>Auth::user()->name,
+                'email'=>Auth::user()->email
+            ]
+        );
 
         return redirect()->route('products.index')
             ->with('success','Product created successfully.');
