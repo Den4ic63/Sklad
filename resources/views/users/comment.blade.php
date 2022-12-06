@@ -15,8 +15,17 @@
                             <input type="text" name="comment" class="form-control" placeholder="Leave a comment">
                         </div>
                     </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            <strong>Rating</strong>
+                            <input type="range" name="rating" min="1" max="5" class="form-control" >
+                            <datalist id="rating">
+                                <option value="1" label="★"></option>
+                            </datalist>
+                        </div>
+                    </div>
                     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Оставить комент</button>
                     </div>
                 </div>
 
@@ -35,12 +44,14 @@
             <th>№</th>
             <th>Email</th>
             <th>Comment</th>
+            <th>Rating</th>
         </tr>
         @foreach ($data as $key => $comments)
             <tr>
                 <td>{{ ++$i }}</td>
                 <td>{{ $comments->email }}</td>
                 <td>{{ $comments->comment }}</td>
+                <td>{{$comments->rating}}</td>
             </tr>
         @endforeach
     </table>

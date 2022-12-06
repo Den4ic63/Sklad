@@ -83,7 +83,7 @@
         @endforeach
         @endhasrole
     </table>
-    </table>
+
 
     {!! $products->links() !!}
 

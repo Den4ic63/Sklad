@@ -146,7 +146,8 @@ class UserController extends Controller
     {
         Comment::create([
             'email'=>Auth::user()->email,
-            'comment'=>$request->comment
+            'comment'=>$request->comment,
+            'rating'=>$request->rating
         ]);
         return redirect()->back();
     }
