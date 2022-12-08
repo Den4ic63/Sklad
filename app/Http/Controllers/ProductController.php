@@ -140,10 +140,6 @@ class ProductController extends Controller
         $observe_project =DB::table('products')->where('condition','=','Проект на рассмотрении')->count();
         $piechart =[
             [
-                'category'=> 'ALL',
-                'value'=>$all_project
-            ],
-            [
                 'category'=> 'START',
                 'value'=>$start_project
             ],

@@ -16,12 +16,21 @@
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group">
-                            <strong>Rating</strong>
-                            <input type="range" name="rating" min="1" max="5" class="form-control" >
-                            <datalist id="rating">
-                                <option value="1" label="★"></option>
-                            </datalist>
+                        <div class="form-group w-100 d-flex flex-column justify-content-center align-items-center">
+                            <strong class="mt-2 mb-2">Rating</strong>
+                            <div class="rating_area mb-4">
+                                <input type="radio" id="star-5" name="rating" value="5">
+                                <label for="star-5" title="Оценка «5»"></label>
+                                <input type="radio" id="star-4" name="rating" value="4">
+                                <label for="star-4" title="Оценка «4»"></label>
+                                <input type="radio" id="star-3" name="rating" value="3">
+                                <label for="star-3" title="Оценка «3»"></label>
+                                <input type="radio" id="star-2" name="rating" value="2">
+                                <label for="star-2" title="Оценка «2»"></label>
+                                <input type="radio" id="star-1" name="rating" value="1">
+                                <label for="star-1" title="Оценка «1»"></label>
+                            </div>
+
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
@@ -56,5 +65,46 @@
         @endforeach
     </table>
 
+    <style>
+        .rating_area {
+            overflow: hidden;
+            width: auto;
+            float:left;
+        }
+
+        .rating_area:not(:checked) > input {
+            display: none;
+        }
+        .rating_area:not(:checked) > label {
+            float: right;
+            width: 35px;
+            padding: 0;
+            cursor: pointer;
+            font-size: 32px;
+            line-height: 32px;
+            color: #F0F0F0;
+        }
+        .rating_area:not(:checked) > label:before {
+            content: '★';
+        }
+        .rating_area > input:checked ~ label {
+            color: gold;
+        }
+        .rating_area:not(:checked) > label:hover,
+        .rating_area:not(:checked) > label:hover ~ label {
+            color: gold;
+        }
+        .rating_area > input:checked + label:hover,
+        .rating_area > input:checked + label:hover ~ label,
+        .rating_area > input:checked ~ label:hover,
+        .rating_area > input:checked ~ label:hover ~ label,
+        .rating_area > label:hover ~ input:checked ~ label {
+            color: gold;
+        }
+        .rating_area > label:active {
+            position: relative;
+        }
+
+    </style>
 
 @endsection
