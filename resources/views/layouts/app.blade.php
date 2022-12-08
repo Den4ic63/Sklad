@@ -11,7 +11,9 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
@@ -41,7 +43,9 @@
                         <li><a class="nav-link" href="{{ route('users.index') }}">Manage Users</a></li>
                         <li><a class="nav-link" href="{{ route('roles.index') }}">Manage Role</a></li>
                         <li><a class="nav-link" href="{{ route('products.index') }}">Manage Product</a></li>
+                        <li><a class="nav-link" href="/stats">Project statistic</a></li>
                         @endhasrole
+
                         @hasrole('Client')
                         <li><a class="nav-link" href="{{ route('products.index') }}">Create request</a></li>
                         <li><a class="nav-link" href="/comment">Do comment about company</a></li>

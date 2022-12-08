@@ -31,6 +31,7 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('/comment',[UserController::class,'comments']);
     Route::post('/takecomment',[UserController::class,'leavecomments']);
+    Route::get('/stats',[ProductController::class,'cheakstats']);
 
 });
 

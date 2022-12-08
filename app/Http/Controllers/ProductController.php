@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -20,6 +21,7 @@ class ProductController extends Controller
         $this->middleware('permission:product-create', ['only' => ['create','store']]);
         $this->middleware('permission:product-edit', ['only' => ['edit','update']]);
         $this->middleware('permission:product-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:show-stats',['only'=>['stats','cheakstats']]);
     }
     /**
      * Отобразить список ресурсов.
@@ -127,5 +129,36 @@ class ProductController extends Controller
 
         return redirect()->route('products.index')
             ->with('success','Product deleted successfully');
+    }
+
+    public function cheakstats()
+    {
+
+        $all_project =DB::table('products')->select(DB::raw('condition'))->count();
+        $start_project =DB::table('products')->where('condition','=','Проект начат')->count();
+        $end_project =DB::table('products')->where('condition','=','Проект закончен')->count();
+        $observe_project =DB::table('products')->where('condition','=','Проект на рассмотрении')->count();
+        $piechart =[
+            [
+                'category'=> 'ALL',
+                'value'=>$all_project
+            ],
+            [
+                'category'=> 'START',
+                'value'=>$start_project
+            ],
+            [
+                'category'=> 'END',
+                'value'=>$end_project
+            ],
+            [
+                'category'=> 'OBSERVE',
+                'value'=>$observe_project
+            ],
+        ];
+
+        $pie=json_encode($piechart);
+
+        return view('products.stats',['pie'=>$pie],compact('all_project','start_project','end_project','observe_project'));
     }
 }
