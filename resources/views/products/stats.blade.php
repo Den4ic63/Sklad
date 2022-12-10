@@ -5,6 +5,7 @@
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
                 <h2>Project Stats</h2>
+                <a class="btn btn-primary mb-2" href="/pdf">Create pdf docs</a>
             </div>
         </div>
     </div>
@@ -23,6 +24,7 @@
                 <td>{{ $observe_project}}</td>
             </tr>
     </table>
+
 
     <!-- HTML -->
     <div id="chartdiv">

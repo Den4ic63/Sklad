@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ProductController extends Controller
 {
@@ -156,5 +158,24 @@ class ProductController extends Controller
         $pie=json_encode($piechart);
 
         return view('products.stats',['pie'=>$pie],compact('all_project','start_project','end_project','observe_project'));
+    }
+
+    public function CreatePdf()
+    {
+        $all_project =DB::table('products')->select(DB::raw('condition'))->count();
+        $start_project =DB::table('products')->where('condition','=','Проект начат')->count();
+        $end_project =DB::table('products')->where('condition','=','Проект закончен')->count();
+        $observe_project =DB::table('products')->where('condition','=','Проект на рассмотрении')->count();
+        $date=Carbon::now();
+
+        $data =[
+            'all'=>$all_project,
+            'start'=>$start_project,
+            'end'=>$end_project,
+            'observe'=>$observe_project,
+            'date'=>$date
+        ];
+        $pdf = PDF::loadView('products.pdf', $data);
+        return $pdf->download('Statistic.pdf');
     }
 }
