@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                    <span>Hello {{\Illuminate\Support\Facades\Auth::user()->name}}</span>
                 </div>
             </div>
         </div>
